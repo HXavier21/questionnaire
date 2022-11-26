@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">questionnaire</string>
+    <string name="title_activity_single_choice">SingleChoiceActivity</string>
+    <string name="title_activity_create">CreateActivity</string>
 </resources>
