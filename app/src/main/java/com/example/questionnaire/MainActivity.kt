@@ -3,100 +3,49 @@ package com.example.questionnaire
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
+private const val TAG = "MainActivity"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HomeScreen(onNavigateToCreate = {}, onNavigateToImport = {})
-
+            val questions: MutableList<Question>
+            MyAppNavHost()
         }
     }
 }
 
-data class Message(val author: String, val body: String)
+val total = 3
 
-@Composable
-fun MyAppNavHost(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController(),
-    startDestination: String = "HomeScreen"
-) {
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = startDestination
-    ) {
-        composable("HomeScreen") {
-            HomeScreen(
-                onNavigateToCreate = { navController.navigate("CreateScreen") },
-                onNavigateToImport = { navController.navigate("ImportScreen") }
-            )
-        }
-        composable("CreateScreen") { CreateScreen(/*...*/) }
-        composable("ImportScreen") {}
-    }
+enum class QuestionType {
+    Single_Choice, Multiple_Choice, Blank_Fill
 }
 
-@Composable
-fun HomeScreen(onNavigateToCreate: () -> Unit, onNavigateToImport: () -> Unit) {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Column(modifier = Modifier.weight(1f)) {}
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = onNavigateToImport
-                ) {
-                    Text(
-                        text = "Import Questionnaire",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                }
-                Text(
-                    text = "or",
-                    color = MaterialTheme.colorScheme.secondaryContainer,
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = onNavigateToCreate
-                ) {
-                    Text(
-                        text = "Create New Questionnaire",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                }
-            }
-        }
-    }
-}
+@Serializable
+sealed class Ques
+data class SingleChoice(val headline: String,val options: List<String>):Ques()
+data class MutipleChoice(val headline: String,val options: List<String>):Ques()
+data class BlankFill(val headline: String,val text:String):Ques()
 
-@Composable
-fun CreateScreen(){
-    Surface(){
+data class Question(
+    val type: QuestionType, val headline: String, val options: List<String>
+)
 
-    }
-}
-
-@Preview
-@Composable
-fun PreviewHome() {
-    HomeScreen(onNavigateToCreate = {}, onNavigateToImport = {})
-}
+val options: List<String> = listOf(
+    "aaadhashuiashdfuaihsdfiuadhfhdfdsfa",
+    "bbbbsahidshfsaidhsidsdhsdsdsd",
+    "ccccccccccccccccccccccccccccccccccccccccccc",
+    "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+)
+val question1: Question = Question(
+    QuestionType.Single_Choice, "aaaaaaaasdasdawdwddds,why?", options
+)
+val question2: Question = Question(
+    QuestionType.Multiple_Choice, "adjnfuahrfiuewhioncsanaasdgfsg,what?", options
+)
+val question3: Question = Question(
+    QuestionType.Blank_Fill, "nsfjdkhfafohiwhfioaaifsis,how?", options
+)

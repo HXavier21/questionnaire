@@ -33,6 +33,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questionnaire.ui.SampleData
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
+import kotlin.String
+
+data class Message(val author: String, val body: String)
 
 @Composable
 fun MessageCard(modifier: Modifier = Modifier, msg: Message) {
