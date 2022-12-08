@@ -34,23 +34,3 @@ fun BlankFillInputBox(text: String = "", onValueChange: (String) -> Unit) {
             .requiredHeight(450.dp)
     )
 }
-
-@Preview
-@Composable
-fun Fillblankpreview() {
-    QuestionnaireTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            Column(modifier = Modifier.fillMaxHeight()) {
-                Spacer(modifier = Modifier.height(10.dp))
-                ProgressIndicator(section = 1, total = total)
-                Spacer(modifier = Modifier.height(40.dp))
-                HeadingScreen(type = question3.type, headline = question3.headline)
-                Spacer(modifier = Modifier.height(20.dp))
-                var text by rememberSaveable { mutableStateOf("") }
-                BlankFillInputBox(text) { text = it }
-                Spacer(modifier = Modifier.weight(1f))
-                BottomButton()
-            }
-        }
-    }
-}

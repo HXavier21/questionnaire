@@ -16,7 +16,7 @@ import kotlin.String
 
 @Composable
 fun HeadingScreen(
-    type: QuestionType = QuestionType.Single_Choice,
+    type: String = "",
     headline: String = ""
 ) {
     Column() {
@@ -28,7 +28,7 @@ fun HeadingScreen(
                 .clip(MaterialTheme.shapes.medium)
         ) {
             CustomText(
-                text = type.toString(),
+                text = type,
                 modifier = Modifier.padding(all = 4.dp),
                 style = MaterialTheme.typography.titleMedium
             )

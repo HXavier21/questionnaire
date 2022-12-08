@@ -1,5 +1,6 @@
 package com.example.questionnaire.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -18,15 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.questionnaire.BlankFill
 import com.example.questionnaire.BlankFillInputBox
 import com.example.questionnaire.BottomButton
 import com.example.questionnaire.HeadingScreen
 import com.example.questionnaire.MultipleChoiceOptionItem
+import com.example.questionnaire.MultipleChoice
 import com.example.questionnaire.ProgressIndicator
-import com.example.questionnaire.QuestionType
+import com.example.questionnaire.Question
 import com.example.questionnaire.QuizViewModel
+import com.example.questionnaire.SingleChoice
 import com.example.questionnaire.SingleChoiceOptionItem
-import com.example.questionnaire.total
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
 
 @Composable
@@ -36,36 +40,24 @@ fun QuizScreen(
 ) {
     val viewState by quizViewModel.stateFlow.collectAsState()
     viewState.run {
-        if (index + 1 == total)
-            QuizScreenImpl(
-                index = index + 1,
-                type = questions[index].type,
-                headline = questions[index].headline,
-                options = questions[index].options,
-                onClick = {},
-                onNavigateToNext = { navController.navigate("FinishScreen") },
-                onNavigateToPrevious = { quizViewModel.navigateToPreviousQuestion() }
-            )
-        else if (index == 0)
-            QuizScreenImpl(
-                index = index + 1,
-                type = questions[index].type,
-                headline = questions[index].headline,
-                options = questions[index].options,
-                onClick = {},
-                onNavigateToNext = { quizViewModel.navigateToNextQuestion() },
-                onNavigateToPrevious = { navController.navigate("ImportScreen") }
-            )
-        else
-            QuizScreenImpl(
-                index = index + 1,
-                type = questions[index].type,
-                headline = questions[index].headline,
-                options = questions[index].options,
-                onClick = {},
-                onNavigateToNext = { quizViewModel.navigateToNextQuestion() },
-                onNavigateToPrevious = { quizViewModel.navigateToPreviousQuestion() }
-            )
+
+        QuizScreenImpl(
+            index = index + 1,
+            total = questions.size,
+            question = questions[index],
+            onNavigateToNext = {
+                if (index < questions.size - 1)
+                    quizViewModel.navigateToNextQuestion()
+                else
+                    navController.navigate(RouteName.FINISH_SCREEN)
+            },
+            onNavigateToPrevious = {
+                if (index > 0)
+                    quizViewModel.navigateToPreviousQuestion()
+                else
+                    navController.navigate(RouteName.IMPORT_SCREEN)
+            }
+        )
     }
 }
 
@@ -73,51 +65,68 @@ fun QuizScreen(
 fun QuizScreenImpl(
     index: Int = 1,
     total: Int = 3,
-    type: QuestionType = QuestionType.Single_Choice,
-    headline: String = "",
-    options: List<String> = listOf(),
-    text: String = "",
-    onClick: () -> Unit = {},
-    onCheckedChange: (Boolean) -> Unit = {},
-    onValueChanged: (String) -> Unit = {},
+    question: Question,
     onNavigateToPrevious: () -> Unit = {},
-    onNavigateToNext: () -> Unit = {}
+    onNavigateToNext: () -> Unit = {},
 ) {
+    BackHandler(index != 0) {
+        onNavigateToPrevious()
+    }
     QuestionnaireTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.fillMaxHeight()) {
                 Spacer(modifier = Modifier.height(10.dp))
                 ProgressIndicator(section = index, total = total)
                 Spacer(modifier = Modifier.height(40.dp))
-                HeadingScreen(type = type, headline = headline)
+                HeadingScreen(
+                    type = when (question) {
+                        is BlankFill -> "Blank_Fill"
+                        is MultipleChoice -> "Multiple_Choice"
+                        is SingleChoice -> "Single_Choice"
+                    }, headline = question.headline
+                )
                 Spacer(modifier = Modifier.height(20.dp))
-                if (type != QuestionType.Blank_Fill) {
-                    LazyColumn(
-                        modifier = Modifier.requiredHeight(450.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        if (type == QuestionType.Single_Choice)
-                            for (option in options) item {
-                                SingleChoiceOptionItem(
-                                    text = option,
-//                                    selected =,
-                                    onClick = onClick
+                LazyColumn(
+                    modifier = Modifier.requiredHeight(450.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    when (question) {
+                        is BlankFill -> {
+                            item {
+                                BlankFillInputBox(
+                                    text = question.text.value,
+                                    onValueChange = {
+                                        question.text.value = it
+                                    }
                                 )
                             }
-                        else
-                            for (option in options) item {
+                        }
+
+                        is MultipleChoice -> {
+                            itemsIndexed(question.options) { index, option ->
                                 MultipleChoiceOptionItem(
                                     text = option,
-//                                    checked =,
-                                    onCheckedChange = onCheckedChange
+                                    onCheckedChange = {
+                                        if (it) question.checked.add(index)
+                                        else question.checked.remove(index)
+                                    },
+                                    checked = question.checked.contains(index),
                                 )
                             }
+                        }
+
+                        is SingleChoice -> {
+                            itemsIndexed(question.options) { index, option ->
+                                SingleChoiceOptionItem(
+                                    text = option,
+                                    onClick = {
+                                        question.selected.value = index
+                                    },
+                                    selected = (question.selected.value == index)
+                                )
+                            }
+                        }
                     }
-                } else {
-                    BlankFillInputBox(
-                        text = text,
-                        onValueChange = onValueChanged
-                    )
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 BottomButton(onNavigateToPrevious, onNavigateToNext)

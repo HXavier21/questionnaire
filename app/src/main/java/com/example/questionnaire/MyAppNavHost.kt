@@ -2,11 +2,15 @@ package com.example.questionnaire
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.questionnaire.serializable.Decode
+import com.example.questionnaire.serializable.Encode
 import com.example.questionnaire.ui.QuizScreen
+import com.example.questionnaire.ui.RouteName
 import com.example.questionnaire.ui.screen.FinishScreen
 import kotlin.String
 
@@ -14,36 +18,42 @@ import kotlin.String
 fun MyAppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "HomeScreen"
+    startDestination: String = RouteName.HOME_SCREEN
 ) {
+    val quizViewModel: QuizViewModel = viewModel()
+
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
-        composable("HomeScreen") {
+        composable(RouteName.HOME_SCREEN) {
             HomeScreen(
-                onNavigateToDatabase = { navController.navigate("DatabaseScreen") },
-                onNavigateToImport = { navController.navigate("ImportScreen") }
+                onNavigateToDatabase = { navController.navigate(RouteName.DATABASE_SCREEN) },
+                onNavigateToImport = { navController.navigate(RouteName.IMPORT_SCREEN) }
             )
         }
-        composable("DatabaseScreen") {
+        composable(RouteName.DATABASE_SCREEN) {
             (TODO())
         }
-        composable("ImportScreen") {
+        composable(RouteName.IMPORT_SCREEN) {
             ImportScreen(
-                onNavigateToPrevious = {navController.navigate("HomeScreen")},
-                onNavigateToNext = {navController.navigate("QuizScreen")}
+                quizViewModel = quizViewModel,
+                onNavigateToPrevious = { navController.navigate(RouteName.HOME_SCREEN) },
+                onNavigateToNext = {
+                    navController.navigate(RouteName.QUIZ_SCREEN)
+                }
             )
         }
-        composable("QuizScreen"){
+        composable(RouteName.QUIZ_SCREEN) {
             QuizScreen(
+                quizViewModel = quizViewModel,
                 navController = navController
             )
         }
-        composable("FinishScreen"){
+        composable(RouteName.FINISH_SCREEN) {
             FinishScreen(
-                onClick = {navController.navigate("HomeScreen")}
+                onClick = { navController.navigate(RouteName.HOME_SCREEN) }
             )
         }
     }

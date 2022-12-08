@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,18 +20,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.questionnaire.serializable.Decode
+import com.example.questionnaire.serializable.Encode
 import com.example.questionnaire.ui.component.CustomText
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
+import kotlinx.coroutines.flow.update
 import kotlin.String
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImportScreen(
-    text: String = "",
-    textChange: (String) -> Unit = {},
+    quizViewModel: QuizViewModel = viewModel(),
+    onTextChange: (String) -> Unit = {},
     onNavigateToPrevious: () -> Unit = {},
     onNavigateToNext: () -> Unit = {}
 ) {
+    val text by quizViewModel.mutableJsonContentFlow.collectAsState()
     QuestionnaireTheme() {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column {
@@ -42,15 +48,16 @@ fun ImportScreen(
                 )
                 OutlinedTextField(
                     value = text,
-                    onValueChange = textChange,
+                    onValueChange = { s -> quizViewModel.mutableJsonContentFlow.update { s } },
                     label = { CustomText("Questionnaire(.json)") },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .requiredHeight(520.dp)
+                        .weight(1f)
                         .padding(all = 10.dp)
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                BottomButton(onNavigateToPrevious, onNavigateToNext)
+                BottomButton(onNavigateToPrevious) {
+                    quizViewModel.mutableStateFlow.update { it.copy(questions = Decode(text)) }
+                    onNavigateToNext()
+                }
             }
         }
     }
@@ -61,5 +68,5 @@ fun ImportScreen(
 fun ImportScreenPreview(
 ) {
     var text by remember { mutableStateOf("") }
-    ImportScreen(text, { text = it })
+    ImportScreen(onTextChange = { text = it })
 }

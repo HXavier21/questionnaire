@@ -72,33 +72,3 @@ fun MultipleChoiceOptionItem(
         }
     }
 }
-
-@Preview
-@Composable
-fun multiple() {
-    var state by remember { mutableStateOf(false) }
-    QuestionnaireTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            Column(modifier = Modifier.fillMaxHeight()) {
-                Spacer(modifier = Modifier.height(10.dp))
-                ProgressIndicator(section = 1, total = total)
-                Spacer(modifier = Modifier.height(40.dp))
-                HeadingScreen(type = question2.type, headline = question2.headline)
-                Spacer(modifier = Modifier.height(20.dp))
-                LazyColumn(
-                    modifier = Modifier.requiredHeight(450.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    for (option in options) item {
-                        MultipleChoiceOptionItem(
-                            text = option,
-                            checked = state,
-                            onCheckedChange = { state = !state })
-                    }
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                BottomButton()
-            }
-        }
-    }
-}

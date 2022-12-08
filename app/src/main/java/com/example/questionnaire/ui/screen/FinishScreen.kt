@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.questionnaire.ui.component.CustomText
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
 
+
 @Composable
 @Preview
 fun FinishScreen(onClick: () -> Unit = {}) {
