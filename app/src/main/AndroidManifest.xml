@@ -10,18 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".App"
         android:theme="@style/Theme.Questionnaire"
         tools:targetApi="31">
-        <activity
-            android:name=".CreateActivity"
-            android:exported="false"
-            android:label="@string/title_activity_create"
-            android:theme="@style/Theme.Questionnaire" />
-        <activity
-            android:name=".SingleChoiceActivity"
-            android:exported="false"
-            android:label="@string/title_activity_single_choice"
-            android:theme="@style/Theme.Questionnaire" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

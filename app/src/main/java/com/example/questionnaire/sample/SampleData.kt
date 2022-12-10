@@ -1,6 +1,5 @@
-package com.example.questionnaire.ui
+package com.example.questionnaire.sample
 
-import com.example.questionnaire.Message
 
 object SampleData {
     // Sample conversation data

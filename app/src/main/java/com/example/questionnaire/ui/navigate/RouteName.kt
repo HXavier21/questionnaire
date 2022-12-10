@@ -1,4 +1,4 @@
-package com.example.questionnaire.ui
+package com.example.questionnaire.ui.navigate
 
 object RouteName {
     const val FINISH_SCREEN = "FinishScreen"

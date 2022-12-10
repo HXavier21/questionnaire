@@ -1,4 +1,4 @@
-package com.example.questionnaire
+package com.example.questionnaire.sample
 
 import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
@@ -31,7 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.questionnaire.ui.SampleData
+import com.example.questionnaire.R
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
 import kotlin.String
 

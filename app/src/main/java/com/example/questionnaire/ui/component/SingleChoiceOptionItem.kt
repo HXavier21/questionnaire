@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questionnaire.ui.component.CustomText
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
+import com.example.questionnaire.ui.theme.imagelist
 import kotlin.String
 
 @Composable
@@ -41,6 +42,7 @@ fun SingleChoiceOptionItem(
     text: String = "Description",
     selected: Boolean = false,
     shape: Shape = MaterialTheme.shapes.medium,
+    index: Int = 0,
     onClick: () -> Unit = {}
 ) {
     val animatedDp by animateDpAsState(targetValue = if (selected) 5.dp else 0.dp, tween(100))
@@ -66,7 +68,7 @@ fun SingleChoiceOptionItem(
                     .padding(horizontal = 16.dp)
                     .size(56.dp)
                     .clip(MaterialTheme.shapes.large),
-                painter = painterResource(id = R.drawable.profile_picture),
+                painter = painterResource(id = imagelist[index % 4]),
                 contentDescription = null
             )
             CustomText(

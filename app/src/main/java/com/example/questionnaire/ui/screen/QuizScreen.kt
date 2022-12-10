@@ -1,5 +1,6 @@
 package com.example.questionnaire.ui
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,10 +29,14 @@ import com.example.questionnaire.MultipleChoiceOptionItem
 import com.example.questionnaire.MultipleChoice
 import com.example.questionnaire.ProgressIndicator
 import com.example.questionnaire.Question
-import com.example.questionnaire.QuizViewModel
+import com.example.questionnaire.data.QuizViewModel
 import com.example.questionnaire.SingleChoice
 import com.example.questionnaire.SingleChoiceOptionItem
+import com.example.questionnaire.serializable.Encode
+import com.example.questionnaire.ui.navigate.RouteName
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
+
+private const val TAG = "QuizScreen"
 
 @Composable
 fun QuizScreen(
@@ -40,7 +45,6 @@ fun QuizScreen(
 ) {
     val viewState by quizViewModel.stateFlow.collectAsState()
     viewState.run {
-
         QuizScreenImpl(
             index = index + 1,
             total = questions.size,
@@ -48,8 +52,17 @@ fun QuizScreen(
             onNavigateToNext = {
                 if (index < questions.size - 1)
                     quizViewModel.navigateToNextQuestion()
-                else
+                else {
+                    for (quetion in questions) {
+                        when (quetion) {
+                            is MultipleChoice -> {quetion.checkedItems.addAll(quetion.checked.toList())}
+                            is SingleChoice -> {quetion.selectedItem = quetion.selected.value}
+                            is BlankFill -> {quetion.answer = quetion.text.value}
+                        }
+                    }
+                    Log.d(TAG, "checkeditem: "+ Encode(questions))
                     navController.navigate(RouteName.FINISH_SCREEN)
+                }
             },
             onNavigateToPrevious = {
                 if (index > 0)
@@ -99,6 +112,7 @@ fun QuizScreenImpl(
                                         question.text.value = it
                                     }
                                 )
+                                Log.d(TAG, "answer:" + question.answer)
                             }
                         }
 
@@ -122,7 +136,8 @@ fun QuizScreenImpl(
                                     onClick = {
                                         question.selected.value = index
                                     },
-                                    selected = (question.selected.value == index)
+                                    selected = (question.selected.value == index),
+                                    index = index
                                 )
                             }
                         }

@@ -7,12 +7,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.questionnaire.serializable.Decode
-import com.example.questionnaire.serializable.Encode
+import com.example.questionnaire.data.QuestionnaireClass
+import com.example.questionnaire.data.QuizViewModel
 import com.example.questionnaire.ui.QuizScreen
-import com.example.questionnaire.ui.RouteName
+import com.example.questionnaire.ui.navigate.RouteName
+import com.example.questionnaire.ui.screen.DatabaseItem
+import com.example.questionnaire.ui.screen.DatabaseScreen
 import com.example.questionnaire.ui.screen.FinishScreen
 import kotlin.String
+import kotlin.concurrent.thread
 
 @Composable
 fun MyAppNavHost(
@@ -21,7 +24,6 @@ fun MyAppNavHost(
     startDestination: String = RouteName.HOME_SCREEN
 ) {
     val quizViewModel: QuizViewModel = viewModel()
-
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -34,15 +36,24 @@ fun MyAppNavHost(
             )
         }
         composable(RouteName.DATABASE_SCREEN) {
-            (TODO())
+            var questionnairelist: List<QuestionnaireClass> = listOf(
+                QuestionnaireClass(topic = "Fruit preference")
+            )
+            thread {
+                questionnairelist = App.db.questionnaireClassDao().getAll()
+            }
+            DatabaseScreen(
+                questionnairelist = questionnairelist
+            )
         }
         composable(RouteName.IMPORT_SCREEN) {
             ImportScreen(
                 quizViewModel = quizViewModel,
-                onNavigateToPrevious = { navController.navigate(RouteName.HOME_SCREEN) },
-                onNavigateToNext = {
-                    navController.navigate(RouteName.QUIZ_SCREEN)
-                }
+                onNavigateToPrevious = {
+                    navController.navigate(RouteName.HOME_SCREEN)
+                    { popUpTo(RouteName.HOME_SCREEN) { inclusive = true } }
+                },
+                onNavigateToNext = { navController.navigate(RouteName.QUIZ_SCREEN) }
             )
         }
         composable(RouteName.QUIZ_SCREEN) {
@@ -53,7 +64,8 @@ fun MyAppNavHost(
         }
         composable(RouteName.FINISH_SCREEN) {
             FinishScreen(
-                onClick = { navController.navigate(RouteName.HOME_SCREEN) }
+                quizViewModel = quizViewModel,
+                navController = navController
             )
         }
     }
