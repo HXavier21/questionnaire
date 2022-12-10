@@ -36,14 +36,13 @@ fun MyAppNavHost(
             )
         }
         composable(RouteName.DATABASE_SCREEN) {
-            var questionnairelist: List<QuestionnaireClass> = listOf(
-                QuestionnaireClass(topic = "Fruit preference")
-            )
+            var questionnairelist: MutableList<QuestionnaireClass> = mutableListOf()
             thread {
-                questionnairelist = App.db.questionnaireClassDao().getAll()
+                questionnairelist.addAll(App.db.questionnaireClassDao().getAll())
             }
             DatabaseScreen(
-                questionnairelist = questionnairelist
+                questionnairelist = questionnairelist,
+                quizViewModel = quizViewModel
             )
         }
         composable(RouteName.IMPORT_SCREEN) {
