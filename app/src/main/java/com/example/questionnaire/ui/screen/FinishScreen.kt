@@ -48,23 +48,31 @@ fun FinishScreen(
                 Spacer(modifier = Modifier.weight(1f))
                 Button(
                     onClick = {
-                        thread {
-                            App.db.questionnaireClassDao().insertAll(
-                                QuestionnaireClass(
-                                    topic = viewState.topic,
-                                    json = Encode(viewState.questions)
+                        if (!viewState.show) {
+                            thread {
+                                App.db.questionnaireClassDao().insertAll(
+                                    QuestionnaireClass(
+                                        topic = viewState.topic,
+                                        json = Encode(viewState.questions)
+                                    )
                                 )
-                            )
+                            }
+                            navController.navigate(RouteName.HOME_SCREEN)
+                            { popUpTo(RouteName.HOME_SCREEN) { inclusive = true } }
+                        } else {
+                            navController.navigate(RouteName.DATABASE_SCREEN)
+                            { popUpTo(RouteName.DATABASE_SCREEN) { inclusive = true } }
                         }
-                        navController.navigate(RouteName.HOME_SCREEN)
-                        { popUpTo(RouteName.HOME_SCREEN) { inclusive = true } }
                     },
                     modifier = Modifier
                         .padding(all = 30.dp)
                         .fillMaxWidth()
                 ) {
                     CustomText(
-                        text = "Back to Home",
+                        text = when (viewState.show) {
+                            false -> "Back To Home"
+                            true -> "Back To Database"
+                        },
                         style = MaterialTheme.typography.titleLarge
                     )
                 }

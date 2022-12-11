@@ -6,4 +6,5 @@ object RouteName {
     const val HOME_SCREEN = "HomeScreen"
     const val QUIZ_SCREEN = "QuizScreen"
     const val DATABASE_SCREEN = "DatabaseScreen"
+    const val END_SCREEN = "EndScreen"
 }

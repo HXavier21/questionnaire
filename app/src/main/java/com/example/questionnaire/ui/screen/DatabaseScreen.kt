@@ -1,6 +1,7 @@
 package com.example.questionnaire.ui.screen
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -26,6 +27,7 @@ import com.example.questionnaire.data.QuestionnaireClass
 import com.example.questionnaire.data.QuizViewModel
 import com.example.questionnaire.serializable.Decode
 import com.example.questionnaire.ui.component.CustomText
+import com.example.questionnaire.ui.navigate.RouteName
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
 import kotlinx.coroutines.flow.update
 
@@ -47,8 +49,14 @@ fun DatabaseItem(
                 shape = MaterialTheme.shapes.medium
             )
             .clickable {
-                quizViewModel.mutableStateFlow.update { it.copy(questions = Decode(json)) }
-                navController.navigate("QuizScreen")
+                quizViewModel.mutableStateFlow.update {
+                    it.copy(
+                        show = true,
+                        questions = Decode(json),
+                        topic = topic
+                    )
+                }
+                navController.navigate(RouteName.QUIZ_SCREEN)
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -73,8 +81,13 @@ fun DatabaseItem(
 @Composable
 fun DatabaseScreen(
     questionnairelist: List<QuestionnaireClass>,
-    quizViewModel: QuizViewModel = viewModel()
+    quizViewModel: QuizViewModel = viewModel(),
+    navController: NavController = rememberNavController()
 ) {
+    BackHandler {
+        navController.navigate(RouteName.HOME_SCREEN)
+        { popUpTo(RouteName.HOME_SCREEN) { inclusive = true } }
+    }
     QuestionnaireTheme {
         Column() {
             CustomText(
@@ -89,10 +102,11 @@ fun DatabaseScreen(
                         DatabaseItem(
                             topic = questionnaire.topic,
                             json = questionnaire.json,
-                            quizViewModel = quizViewModel
+                            quizViewModel = quizViewModel,
+                            navController = navController
                         )
                     }
-                    Log.d(TAG, "topic:"+questionnaire.topic+"\njson:"+questionnaire.json)
+                    Log.d(TAG, "topic:" + questionnaire.topic + "\njson:" + questionnaire.json)
                 }
             }
         }

@@ -46,7 +46,7 @@ fun ImportScreen(
                 )
                 OutlinedTextField(
                     value = viewState.topic,
-                    onValueChange = { t -> quizViewModel.mutableStateFlow.update { it.copy(topic = t) } },
+                    onValueChange = { t -> quizViewModel.mutableStateFlow.update { it.copy(show = false,topic = t) } },
                     label = { CustomText(text = "Topic") },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -61,7 +61,7 @@ fun ImportScreen(
                         .padding(all = 10.dp)
                 )
                 BottomButton(onNavigateToPrevious) {
-                    quizViewModel.mutableStateFlow.update { it.copy(questions = Decode(text)) }
+                    quizViewModel.mutableStateFlow.update { it.copy(show = false,questions = Decode(text)) }
                     onNavigateToNext()
                 }
             }
