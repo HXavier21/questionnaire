@@ -40,7 +40,10 @@ fun MyAppNavHost(
                     questionnaireViewModel.syncquestionnaire()
                     navController.navigate(RouteName.DATABASE_SCREEN)
                 },
-                onNavigateToImport = { navController.navigate(RouteName.IMPORT_SCREEN) }
+                onNavigateToImport = {
+                    quizViewModel.topicresume()
+                    navController.navigate(RouteName.IMPORT_SCREEN)
+                }
             )
         }
         composable(RouteName.DATABASE_SCREEN) {
