@@ -45,7 +45,11 @@ fun MultipleChoiceOptionItem(
         targetValue = if (checked) MaterialTheme.colorScheme.primary else
             MaterialTheme.colorScheme.secondaryContainer, tween(100)
     )
-    Surface(shape = shape, tonalElevation = animatedDp, color = MaterialTheme.colorScheme.surface) {
+    Surface(shape = shape,
+        tonalElevation = animatedDp,
+        color = MaterialTheme.colorScheme.surface,
+    modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 5.dp, bottom = 5.dp)
+        ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -61,7 +65,7 @@ fun MultipleChoiceOptionItem(
                 text = text,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier
-                    .padding(all = 10.dp)
+                    .padding(all = 6.dp)
                     .weight(1f)
             )
             Checkbox(

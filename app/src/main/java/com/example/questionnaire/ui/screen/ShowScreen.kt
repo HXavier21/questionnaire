@@ -23,7 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.questionnaire.BlankFill
 import com.example.questionnaire.BlankFillInputBox
 import com.example.questionnaire.BottomButton
-import com.example.questionnaire.HeadingScreen
+import com.example.questionnaire.Headline
 import com.example.questionnaire.MultipleChoice
 import com.example.questionnaire.MultipleChoiceOptionItem
 import com.example.questionnaire.ProgressIndicator
@@ -83,7 +83,7 @@ fun ShowScreenImpl(
                 Spacer(modifier = Modifier.height(10.dp))
                 ProgressIndicator(section = index, total = total)
                 Spacer(modifier = Modifier.height(40.dp))
-                HeadingScreen(
+                Headline(
                     type = when (question) {
                         is BlankFill -> "Blank_Fill"
                         is MultipleChoice -> "Multiple_Choice"

@@ -50,7 +50,11 @@ fun SingleChoiceOptionItem(
         targetValue = if (selected) MaterialTheme.colorScheme.primary else
             MaterialTheme.colorScheme.secondaryContainer, tween(100)
     )
-    Surface(shape = shape, tonalElevation = animatedDp, color = MaterialTheme.colorScheme.surface) {
+    Surface(shape = shape,
+        tonalElevation = animatedDp,
+        color = MaterialTheme.colorScheme.surface,
+        modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 5.dp, bottom = 5.dp)
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
@@ -61,7 +65,7 @@ fun SingleChoiceOptionItem(
                     shape = shape
                 )
                 .clickable { onClick() }
-                .padding(vertical = 16.dp)
+                .padding(all = 6.dp)
         ) {
             Image(
                 modifier = Modifier

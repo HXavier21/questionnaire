@@ -7,8 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Surface
@@ -16,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -24,7 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.questionnaire.BlankFill
 import com.example.questionnaire.BlankFillInputBox
 import com.example.questionnaire.BottomButton
-import com.example.questionnaire.HeadingScreen
+import com.example.questionnaire.Headline
 import com.example.questionnaire.MultipleChoiceOptionItem
 import com.example.questionnaire.MultipleChoice
 import com.example.questionnaire.ProgressIndicator
@@ -104,39 +104,37 @@ fun QuizScreenImpl(
     QuestionnaireTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.fillMaxHeight()) {
-                Spacer(modifier = Modifier.height(10.dp))
                 ProgressIndicator(section = index, total = total)
-                Spacer(modifier = Modifier.height(40.dp))
-                HeadingScreen(
+                Headline(
                     type = when (question) {
                         is BlankFill -> "Blank_Fill"
                         is MultipleChoice -> "Multiple_Choice"
                         is SingleChoice -> "Single_Choice"
                     }, headline = question.headline
                 )
-                Spacer(modifier = Modifier.height(20.dp))
-                LazyColumn(
-                    modifier = Modifier.requiredHeight(450.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    when (question) {
-                        is BlankFill -> {
-                            item {
-                                BlankFillInputBox(
-                                    text = when (show) {
-                                        false -> question.text.value
-                                        true -> question.answer
-                                    },
-                                    onValueChange = {
-                                        if (!show)
-                                            question.text.value = it
-                                    }
-                                )
-                                Log.d(TAG, "answer:" + question.answer)
+                when (question) {
+                    is BlankFill -> {
+                        BlankFillInputBox(
+                            modifier = Modifier
+                                .padding(start = 15.dp, end = 15.dp, bottom = 5.dp)
+                                .fillMaxWidth()
+                                .weight(1f),
+                            text = when (show) {
+                                false -> question.text.value
+                                true -> question.answer
+                            },
+                            onValueChange = {
+                                if (!show)
+                                    question.text.value = it
                             }
-                        }
+                        )
+                        Log.d(TAG, "answer:" + question.answer)
+                    }
 
-                        is MultipleChoice -> {
+                    is MultipleChoice -> {
+                        LazyColumn(
+                            modifier = Modifier.weight(1f),
+                        ) {
                             itemsIndexed(question.options) { index, option ->
                                 MultipleChoiceOptionItem(
                                     text = option,
@@ -152,8 +150,12 @@ fun QuizScreenImpl(
                                 )
                             }
                         }
+                    }
 
-                        is SingleChoice -> {
+                    is SingleChoice -> {
+                        LazyColumn(
+                            modifier = Modifier.weight(1f),
+                        ) {
                             itemsIndexed(question.options) { index, option ->
                                 SingleChoiceOptionItem(
                                     text = option,
@@ -172,7 +174,6 @@ fun QuizScreenImpl(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.weight(1f))
                 BottomButton(onNavigateToPrevious, onNavigateToNext)
             }
         }

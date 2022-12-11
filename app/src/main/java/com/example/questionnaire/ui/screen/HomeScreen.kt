@@ -1,6 +1,7 @@
 package com.example.questionnaire
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,37 +27,47 @@ fun HomeScreen(onNavigateToDatabase: () -> Unit, onNavigateToImport: () -> Unit)
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.weight(1f))
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(all = 10.dp),
-                    onClick = onNavigateToImport
-                ) {
-                    CustomText(
-                        text = "Import Questionnaire",
-                        style = MaterialTheme.typography.titleLarge
-                    )
+                Row {
+                    Spacer(modifier = Modifier.weight(1f))
+                    Button(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(all = 10.dp)
+                            .weight(12f),
+                        onClick = onNavigateToImport
+                    ) {
+                        CustomText(
+                            text = "Import Questionnaire",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
                 }
                 CustomText(
                     text = "or",
                     color = MaterialTheme.colorScheme.primaryContainer,
                     style = MaterialTheme.typography.titleMedium
                 )
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            bottom = 30.dp,
-                            start = 10.dp,
-                            end = 10.dp,
-                            top = 10.dp
-                        ),
-                    onClick = onNavigateToDatabase
-                ) {
-                    CustomText(
-                        text = "Questionnaires Database",
-                        style = MaterialTheme.typography.titleLarge
-                    )
+                Row {
+                    Spacer(modifier = Modifier.weight(1f))
+                    Button(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                bottom = 30.dp,
+                                start = 10.dp,
+                                end = 10.dp,
+                                top = 10.dp
+                            )
+                            .weight(12f),
+                        onClick = onNavigateToDatabase
+                    ) {
+                        CustomText(
+                            text = "Questionnaires Database",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
                 }
             }
         }

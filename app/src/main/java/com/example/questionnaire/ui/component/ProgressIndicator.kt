@@ -29,9 +29,8 @@ fun ProgressIndicator(section: Int = 1, total: Int = 3) {
         CustomText(
             text = stringResource(R.string.progress_indicator_text).format(section, total),
             style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.padding(all = 10.dp)
+            modifier = Modifier.padding(bottom = 20.dp, top = 15.dp)
         )
-        Spacer(modifier = Modifier.padding(all = 10.dp))
         LinearProgressIndicator(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}

@@ -15,7 +15,7 @@ import com.example.questionnaire.ui.component.CustomText
 import kotlin.String
 
 @Composable
-fun HeadingScreen(
+fun Headline(
     type: String = "",
     headline: String = ""
 ) {
@@ -24,7 +24,7 @@ fun HeadingScreen(
             color = MaterialTheme.colorScheme.surface,
             tonalElevation = 2.dp,
             modifier = Modifier
-                .padding(start = 5.dp)
+                .padding(start = 10.dp, top = 21.dp, bottom = 10.dp)
                 .clip(MaterialTheme.shapes.medium)
         ) {
             CustomText(
@@ -33,12 +33,11 @@ fun HeadingScreen(
                 style = MaterialTheme.typography.titleMedium
             )
         }
-        Spacer(modifier = Modifier.height(20.dp))
         CustomText(
             text = headline,
-            style = MaterialTheme.typography.displaySmall,
+            style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier
-                .padding(start = 8.dp),
+                .padding(start = 12.dp, bottom = 15.dp),
             fontWeight = FontWeight.Normal
         )
     }

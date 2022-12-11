@@ -41,7 +41,7 @@ fun FinishScreen(
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 CustomText(
                     text = "Accomplished!",
-                    style = MaterialTheme.typography.displaySmall,
+                    style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier.padding(top = 275.dp)
                 )
@@ -65,15 +65,15 @@ fun FinishScreen(
                         }
                     },
                     modifier = Modifier
-                        .padding(all = 30.dp)
                         .fillMaxWidth()
+                        .padding(all = 30.dp)
                 ) {
                     CustomText(
                         text = when (viewState.show) {
                             false -> "Back To Home"
                             true -> "Back To Database"
                         },
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
             }

@@ -45,6 +45,7 @@ fun DatabaseItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(start = 12.dp, end = 12.dp)
             .border(
                 width = 1.5f.dp,
                 color = MaterialTheme.colorScheme.primary,
@@ -65,18 +66,17 @@ fun DatabaseItem(
     ) {
         CustomText(
             text = topic,
-            fontWeight = FontWeight.Normal,
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier
-                .padding(20.dp)
+                .padding(start = 25.dp, top = 18.dp, bottom = 18.dp)
                 .weight(1f)
         )
         Image(
-            painter = painterResource(R.drawable.director),
+            painter = painterResource(R.drawable.arrow),
             contentDescription = null,
             modifier = Modifier
-                .size(80.dp)
-                .padding(20.dp)
+                .size(60.dp)
+                .padding(end = 20.dp)
         )
     }
 }
@@ -96,11 +96,11 @@ fun DatabaseScreen(
             Column() {
                 CustomText(
                     text = "Questionnaire Database",
-                    style = MaterialTheme.typography.displaySmall,
+                    style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(all = 20.dp)
                 )
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(15.dp)) {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     for (questionnaire in questionnairelist) {
                         item {
                             DatabaseItem(

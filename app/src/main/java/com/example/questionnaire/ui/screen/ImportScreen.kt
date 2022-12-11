@@ -41,27 +41,42 @@ fun ImportScreen(
                 CustomText(
                     text = "Please Import Questionnaire(topic&.json)",
                     fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.padding(top = 60.dp, bottom = 50.dp, start = 8.dp)
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(top = 35.dp, bottom = 20.dp, start = 15.dp)
                 )
                 OutlinedTextField(
                     value = viewState.topic,
-                    onValueChange = { t -> quizViewModel.mutableStateFlow.update { it.copy(show = false,topic = t) } },
+                    onValueChange = { t ->
+                        quizViewModel.mutableStateFlow.update {
+                            it.copy(
+                                show = false,
+                                topic = t
+                            )
+                        }
+                    },
+                    textStyle = MaterialTheme.typography.titleMedium,
                     label = { CustomText(text = "Topic") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(all = 10.dp)
+                        .padding(start = 15.dp, end = 15.dp)
                 )
                 OutlinedTextField(
                     value = text,
                     onValueChange = { s -> quizViewModel.mutableJsonContentFlow.update { s } },
+                    textStyle = MaterialTheme.typography.titleMedium,
                     label = { CustomText("Questionnaire(.json)") },
                     modifier = Modifier
                         .weight(1f)
-                        .padding(all = 10.dp)
+                        .padding(all = 15.dp)
                 )
                 BottomButton(onNavigateToPrevious) {
-                    quizViewModel.mutableStateFlow.update { it.copy(index = 0,show = false,questions = Decode(text)) }
+                    quizViewModel.mutableStateFlow.update {
+                        it.copy(
+                            index = 0,
+                            show = false,
+                            questions = Decode(text)
+                        )
+                    }
                     onNavigateToNext()
                 }
             }

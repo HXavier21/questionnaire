@@ -24,13 +24,15 @@ import kotlin.String
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BlankFillInputBox(text: String = "", onValueChange: (String) -> Unit) {
+fun BlankFillInputBox(
+    modifier: Modifier = Modifier,
+    text: String = "",
+    onValueChange: (String) -> Unit
+) {
     OutlinedTextField(
         value = text,
         onValueChange = onValueChange,
         label = { CustomText("Answer") },
-        modifier = Modifier
-            .fillMaxWidth()
-            .requiredHeight(450.dp)
+        modifier = modifier
     )
 }

@@ -25,20 +25,26 @@ fun BottomButton(
             .absolutePadding(bottom = 20.dp)
             .fillMaxWidth()
     ) {
+        Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = onNavigateToPrevious,
-            modifier = Modifier.weight(1f).padding(all = 10.dp)
+            modifier = Modifier
+                .weight(15f)
+                .padding(all = 5.dp)
         ) {
             CustomText(
                 text = "Previous",
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleMedium
             )
         }
         Button(
             onClick = onNavigateToNext,
-            modifier = Modifier.weight(1f).padding(all = 10.dp)
+            modifier = Modifier
+                .weight(15f)
+                .padding(all = 5.dp)
         ) {
-            CustomText(text = "Next", style = MaterialTheme.typography.titleLarge)
+            CustomText(text = "Next", style = MaterialTheme.typography.titleMedium)
         }
+        Spacer(modifier = Modifier.weight(1f))
     }
 }
