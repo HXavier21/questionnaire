@@ -72,7 +72,6 @@ fun QuizScreen(
                         }
                         Log.d(TAG, "checkeditem: " + Encode(questions))
                     }
-                    quizViewModel.indexreserve()
                     navController.navigate(RouteName.FINISH_SCREEN)
                 }
             },

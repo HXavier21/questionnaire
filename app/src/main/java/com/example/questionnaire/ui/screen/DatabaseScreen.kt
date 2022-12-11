@@ -52,6 +52,7 @@ fun DatabaseItem(
                 quizViewModel.mutableStateFlow.update {
                     it.copy(
                         show = true,
+                        index = 0,
                         questions = Decode(json),
                         topic = topic
                     )

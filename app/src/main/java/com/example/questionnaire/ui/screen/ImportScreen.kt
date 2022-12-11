@@ -61,7 +61,7 @@ fun ImportScreen(
                         .padding(all = 10.dp)
                 )
                 BottomButton(onNavigateToPrevious) {
-                    quizViewModel.mutableStateFlow.update { it.copy(show = false,questions = Decode(text)) }
+                    quizViewModel.mutableStateFlow.update { it.copy(index = 0,show = false,questions = Decode(text)) }
                     onNavigateToNext()
                 }
             }
