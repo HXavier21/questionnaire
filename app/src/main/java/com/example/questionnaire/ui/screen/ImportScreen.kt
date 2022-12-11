@@ -32,6 +32,7 @@ fun ImportScreen(
 ) {
     val text by quizViewModel.mutableJsonContentFlow.collectAsState()
     val viewState by quizViewModel.stateFlow.collectAsState()
+    quizViewModel.topicresume()
     BackHandler {
         onNavigateToPrevious()
     }

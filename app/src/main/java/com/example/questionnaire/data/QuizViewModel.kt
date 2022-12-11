@@ -23,6 +23,10 @@ class QuizViewModel : ViewModel() {
     val mutableStateFlow = MutableStateFlow(QuizViewState())
     val stateFlow = mutableStateFlow.asStateFlow()
 
+    fun topicresume(){
+        mutableStateFlow.update { it.copy(topic = "") }
+    }
+
     fun navigateToNextQuestion() {
         mutableStateFlow.update { it.copy(index = it.index + 1) }
     }
