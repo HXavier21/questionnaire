@@ -15,16 +15,16 @@ class QuizViewModel : ViewModel() {
         val show: Boolean = false,
         val index: Int = 0,
         val questions: List<Question> = emptyList(),
-        val topic: String = ""
+        val topic: String = "Fruit Preference"
     )
 
-    val mutableJsonContentFlow = MutableStateFlow(Encode(obj))
+    var mutableJsonContentFlow = MutableStateFlow(Encode(obj))
 
     val mutableStateFlow = MutableStateFlow(QuizViewState())
     val stateFlow = mutableStateFlow.asStateFlow()
 
     fun topicresume(){
-        mutableStateFlow.update { it.copy(topic = "") }
+        mutableStateFlow.update { it.copy(topic = "Fruit Preference") }
     }
 
     fun navigateToNextQuestion() {

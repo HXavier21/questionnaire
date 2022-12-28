@@ -2,4 +2,21 @@
 <resources>
     <string name="app_name">questionnaire</string>
     <string name="progress_indicator_text">第 %d 题（共 %d 题）</string>
+    <string name="import_questionnaire">导入问卷</string>
+    <string name="questionnaires_database">访问问卷数据库</string>
+    <string name="please_import_questionnaire_topic_json"><![CDATA[请导入问卷\n(主题与json格式文本)]]></string>
+    <string name="topic">主题</string>
+    <string name="questionnaire_json">问卷（json格式文本）</string>
+    <string name="or">或</string>
+    <string name="previous">上一步</string>
+    <string name="next">下一步</string>
+    <string name="blank_fill">填空题</string>
+    <string name="multiple_choice">多选题</string>
+    <string name="single_choice">单选题</string>
+    <string name="questionnaire_database">问卷数据库</string>
+    <string name="accomplished">完成 ！</string>
+    <string name="back_to_home">返回主界面</string>
+    <string name="back_to_database">返回数据库界面</string>
+    <string name="error_in_json">json格式文本错误</string>
+    <string name="answer">回答</string>
 </resources>

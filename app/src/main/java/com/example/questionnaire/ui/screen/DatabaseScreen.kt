@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -95,7 +96,7 @@ fun DatabaseScreen(
         Surface(modifier = Modifier.fillMaxSize()) {
             Column() {
                 CustomText(
-                    text = "Questionnaire Database",
+                    text = stringResource(R.string.questionnaire_database),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(all = 20.dp)

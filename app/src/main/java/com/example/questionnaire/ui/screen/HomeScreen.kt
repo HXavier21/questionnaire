@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questionnaire.ui.component.CustomText
@@ -37,14 +37,14 @@ fun HomeScreen(onNavigateToDatabase: () -> Unit, onNavigateToImport: () -> Unit)
                         onClick = onNavigateToImport
                     ) {
                         CustomText(
-                            text = "Import Questionnaire",
+                            text = stringResource(R.string.import_questionnaire),
                             style = MaterialTheme.typography.titleMedium
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f))
                 }
                 CustomText(
-                    text = "or",
+                    text = stringResource(R.string.or),
                     color = MaterialTheme.colorScheme.primaryContainer,
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -63,7 +63,7 @@ fun HomeScreen(onNavigateToDatabase: () -> Unit, onNavigateToImport: () -> Unit)
                         onClick = onNavigateToDatabase
                     ) {
                         CustomText(
-                            text = "Questionnaires Database",
+                            text = stringResource(R.string.questionnaires_database),
                             style = MaterialTheme.typography.titleMedium
                         )
                     }

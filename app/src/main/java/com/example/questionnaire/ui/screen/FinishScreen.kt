@@ -14,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.questionnaire.App
+import com.example.questionnaire.R
 import com.example.questionnaire.data.QuestionnaireClass
 import com.example.questionnaire.data.QuizViewModel
 import com.example.questionnaire.serializable.Encode
@@ -40,7 +42,7 @@ fun FinishScreen(
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 CustomText(
-                    text = "Accomplished!",
+                    text = stringResource(R.string.accomplished),
                     style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier.padding(top = 275.dp)
@@ -70,8 +72,8 @@ fun FinishScreen(
                 ) {
                     CustomText(
                         text = when (viewState.show) {
-                            false -> "Back To Home"
-                            true -> "Back To Database"
+                            false -> stringResource(R.string.back_to_home)
+                            true -> stringResource(R.string.back_to_database)
                         },
                         style = MaterialTheme.typography.titleMedium
                     )

@@ -5,13 +5,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.questionnaire.ui.component.CustomText
 
@@ -33,7 +31,7 @@ fun BottomButton(
                 .padding(all = 5.dp)
         ) {
             CustomText(
-                text = "Previous",
+                text = stringResource(R.string.previous),
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -43,7 +41,10 @@ fun BottomButton(
                 .weight(15f)
                 .padding(all = 5.dp)
         ) {
-            CustomText(text = "Next", style = MaterialTheme.typography.titleMedium)
+            CustomText(
+                text = stringResource(R.string.next),
+                style = MaterialTheme.typography.titleMedium
+            )
         }
         Spacer(modifier = Modifier.weight(1f))
     }

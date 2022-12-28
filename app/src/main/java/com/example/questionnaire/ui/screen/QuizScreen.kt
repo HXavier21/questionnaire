@@ -2,13 +2,10 @@ package com.example.questionnaire.ui
 
 import android.util.Log
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -17,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -25,13 +23,14 @@ import com.example.questionnaire.BlankFill
 import com.example.questionnaire.BlankFillInputBox
 import com.example.questionnaire.BottomButton
 import com.example.questionnaire.Headline
-import com.example.questionnaire.MultipleChoiceOptionItem
 import com.example.questionnaire.MultipleChoice
+import com.example.questionnaire.MultipleChoiceOptionItem
 import com.example.questionnaire.ProgressIndicator
 import com.example.questionnaire.Question
-import com.example.questionnaire.data.QuizViewModel
+import com.example.questionnaire.R
 import com.example.questionnaire.SingleChoice
 import com.example.questionnaire.SingleChoiceOptionItem
+import com.example.questionnaire.data.QuizViewModel
 import com.example.questionnaire.serializable.Encode
 import com.example.questionnaire.ui.navigate.RouteName
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
@@ -107,9 +106,9 @@ fun QuizScreenImpl(
                 ProgressIndicator(section = index, total = total)
                 Headline(
                     type = when (question) {
-                        is BlankFill -> "Blank_Fill"
-                        is MultipleChoice -> "Multiple_Choice"
-                        is SingleChoice -> "Single_Choice"
+                        is BlankFill -> stringResource(R.string.blank_fill)
+                        is MultipleChoice -> stringResource(R.string.multiple_choice)
+                        is SingleChoice -> stringResource(R.string.single_choice)
                     }, headline = question.headline
                 )
                 when (question) {

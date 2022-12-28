@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">questionnaire</string>
-    <string name="title_activity_single_choice">SingleChoiceActivity</string>
-    <string name="title_activity_create">CreateActivity</string>
     <string name="progress_indicator_text">%d of %d</string>
+    <string name="import_questionnaire">Import Questionnaire</string>
+    <string name="questionnaires_database">Questionnaires Database</string>
+    <string name="please_import_questionnaire_topic_json"><![CDATA[Please Import Questionnaire(topic&.json)]]></string>
+    <string name="topic">Topic</string>
+    <string name="questionnaire_json">Questionnaire(.json)</string>
+    <string name="or">or</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="blank_fill">Blank_Fill</string>
+    <string name="multiple_choice">Multiple_Choice</string>
+    <string name="single_choice">Single_Choice</string>
+    <string name="questionnaire_database">Questionnaire Database</string>
+    <string name="accomplished">Accomplished!</string>
+    <string name="back_to_home">Back To Home</string>
+    <string name="back_to_database">Back To Database</string>
+    <string name="error_in_json">Error in .json</string>
+    <string name="answer">Answer</string>
 </resources>

@@ -9,16 +9,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.questionnaire.data.QuestionnaireClass
 import com.example.questionnaire.data.QuestionnaireViewModel
 import com.example.questionnaire.data.QuizViewModel
+import com.example.questionnaire.serializable.Encode
 import com.example.questionnaire.ui.QuizScreen
 import com.example.questionnaire.ui.navigate.RouteName
-import com.example.questionnaire.ui.screen.DatabaseItem
 import com.example.questionnaire.ui.screen.DatabaseScreen
 import com.example.questionnaire.ui.screen.FinishScreen
-import kotlin.String
-import kotlin.concurrent.thread
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun MyAppNavHost(
@@ -42,6 +40,7 @@ fun MyAppNavHost(
                 },
                 onNavigateToImport = {
                     quizViewModel.topicresume()
+                    quizViewModel.mutableJsonContentFlow = MutableStateFlow(Encode(obj))
                     navController.navigate(RouteName.IMPORT_SCREEN)
                 }
             )
@@ -60,7 +59,9 @@ fun MyAppNavHost(
                     navController.navigate(RouteName.HOME_SCREEN)
                     { popUpTo(RouteName.HOME_SCREEN) { inclusive = true } }
                 },
-                onNavigateToNext = { navController.navigate(RouteName.QUIZ_SCREEN) }
+                onNavigateToNext = {
+                    navController.navigate(RouteName.QUIZ_SCREEN)
+                }
             )
         }
         composable(RouteName.QUIZ_SCREEN) {
