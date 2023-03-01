@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,7 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.questionnaire.App
 import com.example.questionnaire.R
-import com.example.questionnaire.data.QuestionnaireClass
+import com.example.questionnaire.data.UserClass
 import com.example.questionnaire.data.QuizViewModel
 import com.example.questionnaire.serializable.Encode
 import com.example.questionnaire.ui.component.CustomText
@@ -53,7 +52,7 @@ fun FinishScreen(
                         if (!viewState.show) {
                             thread {
                                 App.db.questionnaireClassDao().insertAll(
-                                    QuestionnaireClass(
+                                    UserClass(
                                         topic = viewState.topic,
                                         json = Encode(viewState.questions)
                                     )

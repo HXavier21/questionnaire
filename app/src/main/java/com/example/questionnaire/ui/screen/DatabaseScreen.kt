@@ -26,7 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.questionnaire.R
-import com.example.questionnaire.data.QuestionnaireClass
+import com.example.questionnaire.data.UserClass
 import com.example.questionnaire.data.QuizViewModel
 import com.example.questionnaire.serializable.Decode
 import com.example.questionnaire.ui.component.CustomText
@@ -84,7 +84,7 @@ fun DatabaseItem(
 
 @Composable
 fun DatabaseScreen(
-    questionnairelist: List<QuestionnaireClass>,
+    questionnairelist: List<UserClass>,
     quizViewModel: QuizViewModel = viewModel(),
     navController: NavController = rememberNavController()
 ) {

@@ -7,12 +7,12 @@ import androidx.room.Query
 
 @Dao
 interface QuestionnaireClassDao {
-    @Query("SELECT * FROM questionnaireclass")
-    fun getAll():List<QuestionnaireClass>
+    @Query("SELECT * FROM userClass")
+    fun getAll():List<UserClass>
 
     @Delete
-    fun delete(questionnaireClass: QuestionnaireClass)
+    fun delete(userClass: UserClass)
 
     @Insert
-    fun insertAll(vararg questionnaireClass: QuestionnaireClass)
+    fun insertAll(vararg userClasses: UserClass)
 }

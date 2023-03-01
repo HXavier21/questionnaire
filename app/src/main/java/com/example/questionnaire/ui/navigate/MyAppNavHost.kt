@@ -16,6 +16,7 @@ import com.example.questionnaire.ui.QuizScreen
 import com.example.questionnaire.ui.navigate.RouteName
 import com.example.questionnaire.ui.screen.DatabaseScreen
 import com.example.questionnaire.ui.screen.FinishScreen
+import com.example.questionnaire.ui.screen.LoginScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
@@ -32,6 +33,11 @@ fun MyAppNavHost(
         navController = navController,
         startDestination = startDestination
     ) {
+        composable(RouteName.LOGIN_SCREEN){
+            LoginScreen(
+
+            )
+        }
         composable(RouteName.HOME_SCREEN) {
             HomeScreen(
                 onNavigateToDatabase = {
