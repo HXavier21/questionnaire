@@ -21,7 +21,7 @@ class QuizViewModel : ViewModel() {
     val mutableStateFlow = MutableStateFlow(QuizViewState())
     val stateFlow = mutableStateFlow.asStateFlow()
 
-    fun topicresume(){
+    fun topicResume(){
         mutableStateFlow.update { it.copy(topic = "Fruit Preference") }
     }
 

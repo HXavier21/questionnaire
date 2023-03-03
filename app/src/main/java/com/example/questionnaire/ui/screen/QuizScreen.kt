@@ -1,4 +1,4 @@
-package com.example.questionnaire.ui
+package com.example.questionnaire.ui.screen
 
 import android.util.Log
 import androidx.activity.compose.BackHandler

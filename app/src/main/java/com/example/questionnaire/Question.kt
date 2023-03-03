@@ -1,13 +1,9 @@
 package com.example.questionnaire
 
-import android.util.Log
-import android.util.MutableInt
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collection.mutableVectorOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 

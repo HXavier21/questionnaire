@@ -12,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.questionnaire.data.QuizViewModel
 import com.example.questionnaire.data.UserViewModel
 import com.example.questionnaire.serializable.Encode
-import com.example.questionnaire.ui.QuizScreen
+import com.example.questionnaire.ui.screen.QuizScreen
 import com.example.questionnaire.ui.navigate.RouteName
 import com.example.questionnaire.ui.screen.DatabaseScreen
 import com.example.questionnaire.ui.screen.FinishScreen
@@ -46,7 +46,7 @@ fun MyAppNavHost(
                     navController.navigate(RouteName.DATABASE_SCREEN)
                 },
                 onNavigateToImport = {
-                    quizViewModel.topicresume()
+                    quizViewModel.topicResume()
                     quizViewModel.mutableJsonContentFlow = MutableStateFlow(Encode(obj))
                     navController.navigate(RouteName.IMPORT_SCREEN)
                 }
