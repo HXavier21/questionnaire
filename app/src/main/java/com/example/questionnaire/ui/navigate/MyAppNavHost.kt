@@ -9,13 +9,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.questionnaire.data.QuestionnaireViewModel
 import com.example.questionnaire.data.QuizViewModel
+import com.example.questionnaire.data.UserViewModel
 import com.example.questionnaire.serializable.Encode
 import com.example.questionnaire.ui.QuizScreen
 import com.example.questionnaire.ui.navigate.RouteName
 import com.example.questionnaire.ui.screen.DatabaseScreen
 import com.example.questionnaire.ui.screen.FinishScreen
+import com.example.questionnaire.ui.screen.ImportScreen
 import com.example.questionnaire.ui.screen.LoginScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -26,8 +27,8 @@ fun MyAppNavHost(
     startDestination: String = RouteName.HOME_SCREEN
 ) {
     val quizViewModel: QuizViewModel = viewModel()
-    val questionnaireViewModel: QuestionnaireViewModel = viewModel()
-    val viewState by questionnaireViewModel.stateFlow.collectAsState()
+    val userViewModel: UserViewModel = viewModel()
+    val viewState by userViewModel.stateFlow.collectAsState()
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -41,7 +42,7 @@ fun MyAppNavHost(
         composable(RouteName.HOME_SCREEN) {
             HomeScreen(
                 onNavigateToDatabase = {
-                    questionnaireViewModel.syncquestionnaire()
+                    userViewModel.syncquestionnaire()
                     navController.navigate(RouteName.DATABASE_SCREEN)
                 },
                 onNavigateToImport = {

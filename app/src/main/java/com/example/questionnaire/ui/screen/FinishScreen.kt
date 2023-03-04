@@ -20,11 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.questionnaire.App
 import com.example.questionnaire.R
-import com.example.questionnaire.data.UserClass
 import com.example.questionnaire.data.QuizViewModel
-import com.example.questionnaire.serializable.Encode
 import com.example.questionnaire.ui.component.CustomText
 import com.example.questionnaire.ui.navigate.RouteName
 import com.example.questionnaire.ui.theme.QuestionnaireTheme
@@ -51,12 +48,7 @@ fun FinishScreen(
                     onClick = {
                         if (!viewState.show) {
                             thread {
-                                App.db.questionnaireClassDao().insertAll(
-                                    UserClass(
-                                        topic = viewState.topic,
-                                        json = Encode(viewState.questions)
-                                    )
-                                )
+                                //App.db.userClassDao().insertAll()
                             }
                             navController.navigate(RouteName.HOME_SCREEN)
                             { popUpTo(RouteName.HOME_SCREEN) { inclusive = true } }

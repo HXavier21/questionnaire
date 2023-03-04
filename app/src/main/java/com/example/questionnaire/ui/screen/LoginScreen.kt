@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,80 +45,82 @@ fun LoginScreen(
     }
     val (focusRequester) = FocusRequester.createRefs()
     QuestionnaireTheme {
-        Column {
-            Spacer(modifier = Modifier.weight(1f))
-            Column(Modifier.weight(1f)) {
-                MyTextField(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .border(
-                            color = Color.Black,
-                            width = 0.5.dp,
-                            shape = MaterialTheme.shapes.extraLarge
-                        )
-                        .fillMaxWidth()
-                        .onKeyEvent {
-                            if (it.nativeKeyEvent.keyCode == android.view.KeyEvent.KEYCODE_ENTER){
-                                focusRequester.requestFocus()
-                            }
-                            false
-                        },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(
-                        onDone = {focusRequester.requestFocus()}
-                    ),
-                    label = "Account",
-                    value = account,
-                    onValueChange = { account = it }
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                MyTextField(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .border(
-                            color = Color.Black,
-                            width = 0.5.dp,
-                            shape = MaterialTheme.shapes.extraLarge
-                        )
-                        .fillMaxWidth()
-                        .focusRequester(focusRequester),
-                    label = "Password",
-                    value = password,
-                    onValueChange = { password = it }
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                Row {
-                    Button(
-                        onClick = loginEffect,
+        Surface {
+            Column {
+                Spacer(modifier = Modifier.weight(1f))
+                Column(Modifier.weight(1f)) {
+                    MyTextField(
                         modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 20.dp, end = 5.dp)
-                    ) {
-                        Text(text = "Login", style = MaterialTheme.typography.titleLarge)
-                    }
-                    Button(
-                        onClick = registerEffect,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 5.dp, end = 20.dp)
+                            .padding(horizontal = 20.dp)
                             .border(
+                                color = Color.Black,
                                 width = 0.5.dp,
-                                color = MaterialTheme.colorScheme.primary,
                                 shape = MaterialTheme.shapes.extraLarge
-                            ),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.onPrimary
-                        )
-                    ) {
-                        Text(
-                            text = "Register",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.primary
-                        )
+                            )
+                            .fillMaxWidth()
+                            .onKeyEvent {
+                                if (it.nativeKeyEvent.keyCode == android.view.KeyEvent.KEYCODE_ENTER) {
+                                    focusRequester.requestFocus()
+                                }
+                                false
+                            },
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                        keyboardActions = KeyboardActions(
+                            onDone = { focusRequester.requestFocus() }
+                        ),
+                        label = "Account",
+                        value = account,
+                        onValueChange = { account = it }
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    MyTextField(
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
+                            .border(
+                                color = Color.Black,
+                                width = 0.5.dp,
+                                shape = MaterialTheme.shapes.extraLarge
+                            )
+                            .fillMaxWidth()
+                            .focusRequester(focusRequester),
+                        label = "Password",
+                        value = password,
+                        onValueChange = { password = it }
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row {
+                        Button(
+                            onClick = loginEffect,
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 20.dp, end = 5.dp)
+                        ) {
+                            Text(text = "Login", style = MaterialTheme.typography.titleLarge)
+                        }
+                        Button(
+                            onClick = registerEffect,
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 5.dp, end = 20.dp)
+                                .border(
+                                    width = 0.5.dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    shape = MaterialTheme.shapes.extraLarge
+                                ),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.onPrimary
+                            )
+                        ) {
+                            Text(
+                                text = "Register",
+                                style = MaterialTheme.typography.titleLarge,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
                     }
                 }
+                Spacer(modifier = Modifier.weight(1f))
             }
-            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }

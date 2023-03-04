@@ -52,6 +52,8 @@ dependencies {
     def nav_version = "2.5.3"
     def lifecycle_version = "2.5.1"
 
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
+
     implementation "androidx.navigation:navigation-compose:$nav_version"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'

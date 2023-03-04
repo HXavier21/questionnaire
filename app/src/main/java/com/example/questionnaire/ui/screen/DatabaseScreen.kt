@@ -1,6 +1,5 @@
 package com.example.questionnaire.ui.screen
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -26,8 +25,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.questionnaire.R
-import com.example.questionnaire.data.UserClass
 import com.example.questionnaire.data.QuizViewModel
+import com.example.questionnaire.data.User
 import com.example.questionnaire.serializable.Decode
 import com.example.questionnaire.ui.component.CustomText
 import com.example.questionnaire.ui.navigate.RouteName
@@ -84,7 +83,7 @@ fun DatabaseItem(
 
 @Composable
 fun DatabaseScreen(
-    questionnairelist: List<UserClass>,
+    questionnairelist: List<User>,
     quizViewModel: QuizViewModel = viewModel(),
     navController: NavController = rememberNavController()
 ) {
@@ -105,13 +104,10 @@ fun DatabaseScreen(
                     for (questionnaire in questionnairelist) {
                         item {
                             DatabaseItem(
-                                topic = questionnaire.topic,
-                                json = questionnaire.json,
                                 quizViewModel = quizViewModel,
                                 navController = navController
                             )
                         }
-                        Log.d(TAG, "topic:" + questionnaire.topic + "\njson:" + questionnaire.json)
                     }
                 }
             }
